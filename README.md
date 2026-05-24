@@ -27,6 +27,9 @@ The player’s score for the game is tracked by a simple counter. Each time a pi
 ### Game State
 The game state is tracked using a simple finite state machine that has three states: start, active, and dead. The start state represents the entry state at power on or between games. In this state, the bird “flies” in the middle of the screen and the score remains at 0. There are no pipes, but the clouds continue to move. Once the user claps, the FSM transitions to the active state, which represents the standard game play. In this state, the bird responds to gravity and jumps, the pipes and clouds move across the screen, and the score counts up as the bird passes obstacles. Once the bird collides with a pipe or the bottom of the screen, the FSM transitions to the dead state. A collision is detected when either `BallY + BallS >= Y_Max`, or if both `ball_on` and `pipe_on` are high for any pixel in the frame (this is tracked using a temporary register that is reset for each frame). In the dead state, nothing on the screen moves, the score at death is displayed, and the bird is drawn as a red circle. Once the user claps again, the FSM returns to the start state.
 
+## Toolchain and Hardware
+The design was developed using Vivado 2023.1, and it is recommended to use this version to run the game to ensure IP core compatibility. The target hardware is a Spartan-7 FPGA, specifically the xc7s50csga324-1 part. The design is intended for use with RealDigital's Urbana Board, which incorporates both the TDK T3902 MEMS microphone chip and the HDMI output port.
+
 ## Resource Utilization
 Below is the FPGA resource utilization of the implemented design.
 | Resource     | Utilization     |
